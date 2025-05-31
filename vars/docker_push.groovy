@@ -5,7 +5,7 @@ def call(Map config = [:]) {
     
     echo "Pushing Docker image: ${imageName}:${imageTag}"
     
-    withCredentials([usernamePassword(credentialsId: ${credentials}, passwordVariable: "dockerHubPass", usernameVariable: "dockerHubUser")]){
+    withCredentials([usernamePassword(credentialsId: credentials, passwordVariable: "dockerHubPass", usernameVariable: "dockerHubUser")]){
         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
         sh "docker image tag ${imageName}:${imageTag} ${env.dockerHubUser}/${imageName}-by-jenkins-onhub:${imageTag}"
         sh "docker push ${env.dockerHubUser}/${imageName}-by-jenkins-onhub:${imageTag}"                    
